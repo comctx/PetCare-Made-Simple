@@ -35,6 +35,28 @@
 .nav button[data-nav="pets"]:hover {background:#f8d87a;color:#133c32;border:2px solid #fff0ba;box-shadow:0 3px 12px #082b2350;font-weight:850;}
 .nav button[data-nav="pets"] span:first-child {filter:grayscale(1) brightness(0);font-size:27px;}
 .nav button[data-nav="pets"]:focus-visible {outline:3px solid white;outline-offset:3px;}
+
+/* Make the pet profile button stand out on the dark green homepage hero. */
+.hero .hero-pet-button{
+  background:#218456;
+  color:#ffffff;
+  border:2px solid #b9f1cf;
+  padding:15px 25px;
+  border-radius:15px;
+  font-size:17px;
+  font-weight:850;
+  box-shadow:0 8px 22px rgba(0,0,0,.28);
+}
+.hero .hero-pet-button:hover{
+  background:#2a9a64;
+  border-color:#ffffff;
+  box-shadow:0 10px 25px rgba(0,0,0,.33);
+  transform:translateY(-1px);
+}
+.hero .hero-pet-button:focus-visible{
+  outline:3px solid #ffffff;
+  outline-offset:3px;
+}
 </style>
 </head>
 <body>
@@ -130,7 +152,7 @@ function animalPicker(){return `<div class="animal-toggle" aria-label="Animal ty
 function sourceLinks(ids){return `<div class="source-list">${ids.map(id=>SOURCES[id]).filter(Boolean).map(s=>`<a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">↗ ${esc(s.name)}</a>`).join('')}</div>`}
 function notice(text,kind=''){return `<div class="notice ${kind}"><span aria-hidden="true">${kind==='red'?'🚨':'ℹ️'}</span><p>${text}</p></div>`}
 function home(){const p=selectedPet();const preview=GUIDES.filter(g=>g.animal==='both'||g.animal===state.animal).slice(0,3);return `
-<div class="hero"><div><span class="eyebrow">A friendlier way to care</span><h1>Better days for every paw. 🐾</h1><p>Simple daily routines, dog and cat care guides, and clear first-aid references when something doesn't seem right.</p><div class="actions"><button class="btn white" data-nav="learn">Explore care guides →</button><button class="btn" style="background:#ffffff20;border-color:#ffffff40" data-nav="pets">${p?'View '+esc(p.name):'Add your pet'}</button></div></div><div class="hero-art" aria-hidden="true">${state.animal==='dog'?'🐕':'🐈'}</div></div>
+<div class="hero"><div><span class="eyebrow">A friendlier way to care</span><h1>Better days for every paw. 🐾</h1><p>Simple daily routines, dog and cat care guides, and clear first-aid references when something doesn't seem right.</p><div class="actions"><button class="btn white" data-nav="learn">Explore care guides →</button><button class="btn hero-pet-button" data-nav="pets">${p?'View '+esc(p.name):'Add your pet'}</button></div></div><div class="hero-art" aria-hidden="true">${state.animal==='dog'?'🐕':'🐈'}</div></div>
 <div class="section-head"><h2>Who are we caring for?</h2>${animalPicker()}</div>
 <div class="grid two"><div class="card">${p?`<div class="home-pet-photo">${petPhoto(p)}</div>`:`<div class="symbol">${state.animal==='dog'?'🐶':'🐱'}</div>`}<h3>${p?`Hello, ${esc(p.name)}!`:state.animal==='dog'?'Dog care essentials':'Cat care essentials'}</h3><p>${p?`Personalized checklist for your ${p.stage} ${p.animal}.`:'Start with everyday care essentials and create a profile whenever you are ready.'}</p><button class="card-link" data-nav="tracker">Open today’s checklist <span>→</span></button></div><div class="card"><div class="symbol rose">🚑</div><h3>Need help right now?</h3><p>Recognize common emergency warning signs and find next steps from trusted veterinary sources.</p><button class="card-link" data-nav="emergency">Open pet first aid <span>→</span></button></div></div>
 <div class="section-head"><h2>Start learning</h2><button class="btn sm" data-nav="learn">See all guides →</button></div><div class="grid">${preview.map(g=>guideCard(g)).join('')}</div>
